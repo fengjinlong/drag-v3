@@ -1,0 +1,99 @@
+<template>
+  <div id="editor" class="editor">
+    <!-- 网格线 -->
+    <!-- <Grid /> -->
+
+    <!--页面组件列表展示-->
+    <Shape
+      v-for="(item, index) in componentData"
+      :key="item.id"
+      :default-style="item.style"
+      :index="index"
+    >
+
+      <component
+        :is="item.component"
+        :id="'component' + item.id"
+        class="component"
+        :prop-value="item.propValue"
+        :element="item"
+        :xAxis="item.xAxis"
+        :yAxis="item.yAxis"
+      />
+    </Shape>
+    <!-- 右击菜单 -->
+    <!-- <ContextMenu /> -->
+    <!-- 标线 -->
+    <!-- <MarkLine /> -->
+    <!-- 选中区域 -->
+    <!-- <Area
+            v-show="isShowArea"
+            :start="start"
+            :width="width"
+            :height="height"
+        /> -->
+  </div>
+</template>
+
+<script>
+// import { mapState } from 'vuex'
+import Shape from "./Shape";
+// import { getStyle, getComponentRotatedStyle } from '@/utils/style'
+// import { $ } from '@/utils/utils'
+// import ContextMenu from './ContextMenu'
+// import MarkLine from './MarkLine'
+// import Area from './Area'
+// import eventBus from '@/utils/eventBus'
+// import Grid from './Grid'
+// import { changeStyleWithScale } from '@/utils/translate'
+export default {
+  components: {
+    Shape,
+  },
+  setup(props) {
+    return {
+      componentData: [
+        {
+          component: "v-text", // 组件名称，需要提前注册到 Vue
+          label: "文字", // 左侧组件列表中显示的名字
+          propValue: "文字", // 组件所使用的值
+          icon: "el-icon-edit", // 左侧组件列表中显示的名字
+          animations: [], // 动画列表
+          events: {}, // 事件列表
+          style: {
+            // 组件样式
+            width: 200,
+            height: 33,
+            fontSize: 28,
+            fontWeight: 500,
+            lineHeight: "",
+            letterSpacing: 0,
+            textAlign: "",
+            color: "",
+          },
+        },
+      ],
+    };
+  },
+};
+</script>
+
+<style scoped>
+.editor {
+  position: relative;
+  background: #fff;
+  margin: auto;
+}
+.lock {
+  opacity: 0.5;
+}
+.lock:hover {
+  cursor: not-allowed;
+}
+
+.edit .component {
+  outline: none;
+  width: 100%;
+  height: 100%;
+}
+</style>

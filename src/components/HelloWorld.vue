@@ -1,6 +1,6 @@
 <template>
   <a-layout style="min-height: 100vh">
-    <a-layout-header style="background: #fff; padding: 0">
+    <a-layout-header style="background: #fff; padding: 0">header
       <!-- <menu-unfold-outlined
           v-if="collapsed"
           class="trigger"
@@ -16,6 +16,8 @@
         collapsible
         style="background: #fff"
       >
+      <Left />
+      <button>btn</button>
       </a-layout-sider>
       <a-layout-content
         :style="{
@@ -25,7 +27,9 @@
           minHeight: '280px',
         }"
       >
-        Content
+        <div>
+          <Editor />
+        </div>
       </a-layout-content>
        <a-layout-sider
         v-model:collapsed="collapsed"
@@ -33,6 +37,7 @@
         collapsible
         style="background: #fff"
       >
+      right
       </a-layout-sider>
     </a-layout>
   </a-layout>
@@ -45,14 +50,19 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons-vue";
+import Editor from '@/components/Editor/index'
+import Left from '@/components/Left'
 import { defineComponent, ref } from "vue";
-export default defineComponent({
+// export default defineComponent({
+export default {
   components: {
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
+    // UserOutlined,
+    // VideoCameraOutlined,
+    // UploadOutlined,
+    // MenuUnfoldOutlined,
+    // MenuFoldOutlined,
+    Editor,
+    Left
   },
   setup() {
     return {
@@ -60,18 +70,18 @@ export default defineComponent({
       collapsed: ref(false),
     };
   },
-});
+}
 </script>
 <style scoped>
-#components-layout-demo-custom-trigger .trigger {
+/* #components-layout-demo-custom-trigger .trigger {
   font-size: 18px;
   line-height: 64px;
   padding: 0 24px;
   cursor: pointer;
   transition: color 0.3s;
-}
+} */
 
-#components-layout-demo-custom-trigger .trigger:hover {
+/* #components-layout-demo-custom-trigger .trigger:hover {
   color: #1890ff;
 }
 
@@ -89,5 +99,5 @@ export default defineComponent({
 }
 [data-theme="dark"] .ant-layout-sider .ant-layout-sider-dark {
   background: #fff;
-}
+} */
 </style>
