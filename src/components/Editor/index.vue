@@ -2,13 +2,14 @@
   <div id="editor" class="editor" ref="editor">
     <!-- 网格线 -->
     <!-- <Grid /> -->
-    {{componentData}}
+    {{ componentData }}
 
     <!--页面组件列表展示-->
     <Shape
       v-for="(item, index) in componentData"
       :key="item.id"
       :default-style="item.style"
+      :style="getShapeStyle(item.style)"
       :index="index"
     >
       <component
@@ -64,30 +65,45 @@ export default {
       commit("saveEditor", editor);
     });
 
+    const getShapeStyle = (style) => {
+      const result = {};
+      ["width", "height", "top", "left", "rotate"].forEach((attr) => {
+        if (attr != "rotate") {
+          result[attr] = style[attr] + "px";
+        } else {
+          result.transform = "rotate(" + style[attr] + "deg)";
+        }
+      });
+
+      console.log(result);
+
+      return result;
+    };
     return {
       editor,
+      getShapeStyle,
       componentData,
-      componentData1: [
-        {
-          component: "v-text", // 组件名称，需要提前注册到 Vue
-          label: "文字", // 左侧组件列表中显示的名字
-          propValue: "文字", // 组件所使用的值
-          icon: "el-icon-edit", // 左侧组件列表中显示的名字
-          animations: [], // 动画列表
-          events: {}, // 事件列表
-          style: {
-            // 组件样式
-            width: 200,
-            height: 33,
-            fontSize: 28,
-            fontWeight: 500,
-            lineHeight: "",
-            letterSpacing: 0,
-            textAlign: "",
-            color: "",
-          },
-        },
-      ],
+      // componentData1: [
+      //   {
+      //     component: "v-text", // 组件名称，需要提前注册到 Vue
+      //     label: "文字", // 左侧组件列表中显示的名字
+      //     propValue: "文字", // 组件所使用的值
+      //     icon: "el-icon-edit", // 左侧组件列表中显示的名字
+      //     animations: [], // 动画列表
+      //     events: {}, // 事件列表
+      //     style: {
+      //       // 组件样式
+      //       width: 200,
+      //       height: 33,
+      //       fontSize: 28,
+      //       fontWeight: 500,
+      //       lineHeight: "",
+      //       letterSpacing: 0,
+      //       textAlign: "",
+      //       color: "",
+      //     },
+      //   },
+      // ],
     };
   },
 };

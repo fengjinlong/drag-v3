@@ -1,7 +1,7 @@
 <template>
   <div class="v-button">
     <!-- tabindex >= 0 使得双击时聚集该元素 -->
-  <button :style="style">btn</button> 
+  <button>btn</button> 
   </div>
 
   <!-- @keydown="handleKeydown"
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import {toRefs} from "vue"
 export default {
   props: {
     element: {
@@ -28,6 +29,7 @@ export default {
   },
   setup(props) {
     const style = props.element.style
+    // console.log(toRefs(style).top.value)
     return {
       style,
       canEdit: true,
