@@ -1,6 +1,7 @@
 <template>
   <a-layout style="min-height: 100vh">
-    <a-layout-header style="background: #fff; padding: 0">header
+    <a-layout-header style="background: #fff; padding: 0"
+      >header
       <!-- <menu-unfold-outlined
           v-if="collapsed"
           class="trigger"
@@ -10,14 +11,8 @@
     </a-layout-header>
 
     <a-layout>
-      <a-layout-sider
-        v-model:collapsed="collapsed"
-        :trigger="null"
-        collapsible
-        style="background: #fff"
-      >
-      <Left />
-      <button>btn</button>
+      <a-layout-sider :trigger="null" collapsible style="background: #fff">
+        <Left />
       </a-layout-sider>
       <a-layout-content
         :style="{
@@ -27,22 +22,25 @@
           minHeight: '280px',
         }"
       >
-        <div>
+        <div
+          class="content"
+          @drop="handleDrop"
+          @dragover="handleDragOver"
+          @mousedown="handleMouseDown"
+          @mouseup="deselectCurComponent"
+        >
           <Editor />
         </div>
       </a-layout-content>
-       <a-layout-sider
-        v-model:collapsed="collapsed"
-        :trigger="null"
-        collapsible
-        style="background: #fff"
-      >
-      right
+      <a-layout-sider :trigger="null" collapsible style="background: #fff">
+        right
       </a-layout-sider>
     </a-layout>
   </a-layout>
 </template>
 <script>
+import { useStore } from "vuex";
+import componentListData from "@/custom-component/component-list"; // 左侧列表数据
 import {
   UserOutlined,
   VideoCameraOutlined,
@@ -50,8 +48,8 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons-vue";
-import Editor from '@/components/Editor/index'
-import Left from '@/components/Left'
+import Editor from "@/components/Editor/index";
+import Left from "@/components/Left";
 import { defineComponent, ref } from "vue";
 // export default defineComponent({
 export default {
@@ -62,17 +60,51 @@ export default {
     // MenuUnfoldOutlined,
     // MenuFoldOutlined,
     Editor,
-    Left
+    Left,
   },
   setup() {
+    // 编辑器
+    const store = useStore();
+
     return {
-      selectedKeys: ref(["1"]),
-      collapsed: ref(false),
+      handleDrop(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log(store.state)
+
+        let index = e.dataTransfer.getData("index");
+        if (index) {
+          let com = componentListData[index];
+
+          const rectInfo = store.state.editor.getBoundingClientRect();
+          // 设置位置
+          com.style.top = e.clientY - rectInfo.y
+          com.style.left = e.clientX - rectInfo.x
+
+          store.commit("addItem", com);
+        }
+      },
+
+      handleDragOver(e) {
+        e.preventDefault();
+        // console.log(e);
+      },
+      handleMouseDown(e) {
+        // console.log(e);
+      },
+      deselectCurComponent(e) {
+        // console.log(e);
+      },
     };
   },
-}
+};
 </script>
 <style scoped>
+.content {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
 /* #components-layout-demo-custom-trigger .trigger {
   font-size: 18px;
   line-height: 64px;

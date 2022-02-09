@@ -13,18 +13,18 @@ export const commonAttr = {
 
 // 编辑器左侧组件列表
 const list = [
-  {
-    component: "Bar",
-    label: "bar",
-    icon: "wenben",
-    propValue: ["衬衫", "羊毛衫", "雪纺衫"],
-    style: {
-      xAxis: "背心",
-      yAxis: 60,
-      width: 300,
-      height: 300,
-    },
-  },
+  // {
+  //   component: "Bar",
+  //   label: "bar",
+  //   icon: "wenben",
+  //   propValue: ["衬衫", "羊毛衫", "雪纺衫"],
+  //   style: {
+  //     xAxis: "背心",
+  //     yAxis: 60,
+  //     width: 300,
+  //     height: 300,
+  //   },
+  // },
 
   {
     component: "v-text",
@@ -73,27 +73,27 @@ const list = [
   //     borderRadius: "",
   //   },
   // },
-  {
-    component: "rect-shape",
-    label: "矩形",
-    propValue: "&nbsp;",
-    icon: "juxing",
-    style: {
-      width: 200,
-      height: 200,
-      fontSize: 14,
-      fontWeight: 500,
-      lineHeight: "",
-      letterSpacing: 0,
-      textAlign: "center",
-      color: "",
-      borderColor: "#000",
-      borderWidth: 1,
-      backgroundColor: "",
-      borderStyle: "solid",
-      verticalAlign: "middle",
-    },
-  },
+  // {
+  //   component: "rect-shape",
+  //   label: "矩形",
+  //   propValue: "&nbsp;",
+  //   icon: "juxing",
+  //   style: {
+  //     width: 200,
+  //     height: 200,
+  //     fontSize: 14,
+  //     fontWeight: 500,
+  //     lineHeight: "",
+  //     letterSpacing: 0,
+  //     textAlign: "center",
+  //     color: "",
+  //     borderColor: "#000",
+  //     borderWidth: 1,
+  //     backgroundColor: "",
+  //     borderStyle: "solid",
+  //     verticalAlign: "middle",
+  //   },
+  // },
 ];
 
 for (let i = 0, len = list.length; i < len; i++) {

@@ -4,8 +4,10 @@
 //   Vue.component(key, () => import(`@/custom-component/${key}`))
 // })
 import VText from './VText'
+import VButton from './VButton'
 const components = {
-  VText
+  VText,
+  VButton
 }
 const GlobalComponents = (app) => {
   Object.keys(components).forEach(key => {

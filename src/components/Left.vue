@@ -4,7 +4,7 @@
       v-for="(item, index) in componentList"
       :key="index"
       class="list"
-      draggable
+      :draggable="true"
       :data-index="index"
     >
       <span>{{ item.label }}</span>
@@ -17,10 +17,10 @@ import componentList from "@/custom-component/component-list";
 export default {
   setup() {
     const handleDragStart = (e) => {
-      console.log(e)
+      // console.log(e);
       e.dataTransfer.setData("index", e.target.dataset.index);
       // console.log(e.dataTransfer)
-      console.log(e.target.dataset.index);
+      // console.log(e.target.dataset.index);
     };
     return {
       handleDragStart,

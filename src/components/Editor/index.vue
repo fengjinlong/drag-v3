@@ -1,7 +1,8 @@
 <template>
-  <div id="editor" class="editor">
+  <div id="editor" class="editor" ref="editor">
     <!-- 网格线 -->
     <!-- <Grid /> -->
+    {{componentData}}
 
     <!--页面组件列表展示-->
     <Shape
@@ -10,7 +11,6 @@
       :default-style="item.style"
       :index="index"
     >
-
       <component
         :is="item.component"
         :id="'component' + item.id"
@@ -36,7 +36,8 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+import { useStore } from "vuex";
+import { getCurrentInstance, isRef, toRef, ref, nextTick } from "vue";
 import Shape from "./Shape";
 // import { getStyle, getComponentRotatedStyle } from '@/utils/style'
 // import { $ } from '@/utils/utils'
@@ -51,8 +52,22 @@ export default {
     Shape,
   },
   setup(props) {
+    // const {ctx} = getCurrentInstance()
+    // console.log(useStore())
+
+    // 存dom 获取坐标使用
+    const editor = ref(null);
+    const store = useStore();
+    const { commit, state } = store;
+    const { componentData } = state;
+    nextTick(() => {
+      commit("saveEditor", editor);
+    });
+
     return {
-      componentData: [
+      editor,
+      componentData,
+      componentData1: [
         {
           component: "v-text", // 组件名称，需要提前注册到 Vue
           label: "文字", // 左侧组件列表中显示的名字
