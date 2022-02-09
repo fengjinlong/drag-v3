@@ -2,7 +2,7 @@
   <div id="editor" class="editor" ref="editor">
     <!-- 网格线 -->
     <!-- <Grid /> -->
-    {{ componentData }}
+    <!-- {{ componentData }} -->
 
     <!--页面组件列表展示-->
     <Shape
@@ -38,7 +38,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { getCurrentInstance, isRef, toRef, ref, nextTick } from "vue";
+import { getCurrentInstance, isRef, toRefs, ref, nextTick } from "vue";
 import Shape from "./Shape";
 // import { getStyle, getComponentRotatedStyle } from '@/utils/style'
 // import { $ } from '@/utils/utils'
@@ -75,7 +75,7 @@ export default {
         }
       });
 
-      console.log(result);
+      // console.log(toRefs(style));
 
       return result;
     };

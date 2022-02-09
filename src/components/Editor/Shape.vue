@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="position: absolute;">
     <slot></slot>
   </div>
 </template>

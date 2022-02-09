@@ -49,6 +49,7 @@ const list = [
     icon: "button",
     style: {
       width: 100,
+      position: "absolute",
       height: 34,
       borderWidth: 1,
       borderColor: "",

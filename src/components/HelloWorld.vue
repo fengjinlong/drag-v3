@@ -50,6 +50,7 @@ import {
 } from "@ant-design/icons-vue";
 import Editor from "@/components/Editor/index";
 import Left from "@/components/Left";
+import { deepCopy } from '@/utils/utils'
 import { defineComponent, ref } from "vue";
 // export default defineComponent({
 export default {
@@ -74,7 +75,8 @@ export default {
 
         let index = e.dataTransfer.getData("index");
         if (index) {
-          let com = componentListData[index];
+          // 需要深克隆 不然样式重合
+          let com = deepCopy(componentListData[index])
 
           const rectInfo = store.state.editor.getBoundingClientRect();
           // 设置位置
