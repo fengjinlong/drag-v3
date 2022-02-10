@@ -1,7 +1,7 @@
 <template>
   <div
     style="position: absolute"
-    class="active"
+    class="active shape"
     @click="selectCurComponent"
     @mousedown="handleMouseDownOnShape"
   >
@@ -80,7 +80,6 @@ export default {
     const getPointStyle = (point) => {
       const { width, height } = props.defaultStyle
 
-      console.log(width)
 
       // width = width * 1
       const hasT = /t/.test(point);
