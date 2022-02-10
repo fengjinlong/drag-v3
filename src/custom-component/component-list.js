@@ -48,9 +48,9 @@ const list = [
     propValue: "按钮",
     icon: "button",
     style: {
-      width: '100%',
+      width: 100,
       position: "absolute",
-      height: '100%',
+      height: 34,
       borderWidth: 1,
       borderColor: "",
       borderRadius: "",
