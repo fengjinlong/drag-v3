@@ -1,24 +1,36 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 
 export default createStore({
   state: {
     componentData: [],
-    editor: null
+    curComponent: null,
+    curComponentIndex: 0,
+    editor: null,
   },
 
   mutations: {
-    addItem(state,payload) {
-      state.componentData.push(payload)
+    addItem(state, payload) {
+      state.componentData.push(payload);
     },
     // 编辑器
     saveEditor(state, payload) {
       // console.log('payload')
       // console.log(payload)
-      state.editor = payload
-    }
+      state.editor = payload;
+    },
+    setShapeStyle({curComponent}, { top, left, width, height, rotate }) {
+      // state.componentData[1].style.top = style.top
+      if (top) curComponent.style.top = top;
+      if (left) curComponent.style.left = left;
+      if (width) curComponent.style.width = width;
+      if (height) curComponent.style.height = height;
+      if (rotate) curComponent.style.rotate = rotate;
+    },
+    setCurComponent(state, payload) {
+      state.curComponent = payload.component;
+      state.curComponentIndex = payload.index;
+    },
   },
-  actions: {
-  },
-  modules: {
-  }
-})
+  actions: {},
+  modules: {},
+});

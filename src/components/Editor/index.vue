@@ -2,12 +2,13 @@
   <div id="editor" class="editor" ref="editor">
     <!-- 网格线 -->
     <!-- <Grid /> -->
-    <!-- {{ componentData }} -->
+    <!-- {{  }} -->
 
     <!--页面组件列表展示-->
     <Shape
       v-for="(item, index) in componentData"
       :key="item.id"
+      :element="item"
       :default-style="item.style"
       :style="getShapeStyle(item.style)"
       :index="index"

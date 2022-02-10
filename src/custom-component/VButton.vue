@@ -1,7 +1,7 @@
 <template>
   <div class="v-button">
     <!-- tabindex >= 0 使得双击时聚集该元素 -->
-  <button>btn</button> 
+  <a-button>btn</a-button> 
   </div>
 
   <!-- @keydown="handleKeydown"
