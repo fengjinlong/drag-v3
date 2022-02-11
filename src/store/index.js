@@ -18,8 +18,10 @@ export default createStore({
       // console.log(payload)
       state.editor = payload;
     },
-    setShapeStyle({curComponent}, { top, left, width, height, rotate }) {
+    setShapeStyle({curComponent, componentData, curComponentIndex}, { top, left, width, height, rotate }) {
       // state.componentData[1].style.top = style.top
+// componentData[curComponentIndex].style.width = width;
+      // console.log(curComponent.style.width)
       if (top) curComponent.style.top = top;
       if (left) curComponent.style.left = left;
       if (width) curComponent.style.width = width;

@@ -20,6 +20,7 @@
 
 <script>
 import { useStore } from "vuex";
+import calculateComponentPositonAndSize from "@/utils/calculateComponentPositonAndSize";
 export default {
   props: {
     defaultStyle: {
@@ -39,16 +40,17 @@ export default {
     },
   },
   setup(props) {
-    const { commit } = useStore();
-    const pos = { ...props.defaultStyle };
+    // store
+    const { commit, state } = useStore();
+    const pos = props.defaultStyle;
 
+    // 拖动位置
     const handleMouseDownOnShape = (e) => {
       // 设置当前操作的组件
       commit("setCurComponent", {
         component: props.element,
         index: props.index,
       });
-      // console.log(props.defaultStyle)
 
       // 鼠标点击落点坐标
       const startY = e.clientY;
@@ -65,6 +67,8 @@ export default {
         pos.top = curY - startY + startTop;
         pos.left = curX - startX + startLeft;
 
+        console.log(pos.width);
+
         // 修改当前组件样式
         commit("setShapeStyle", pos);
       };
@@ -76,10 +80,9 @@ export default {
       document.addEventListener("mouseup", up);
     };
 
-// 拖动改变大小
+    // 八个点的位置
     const getPointStyle = (point) => {
-      const { width, height } = props.defaultStyle
-
+      const { width, height } = props.defaultStyle;
 
       // width = width * 1
       const hasT = /t/.test(point);
@@ -114,12 +117,87 @@ export default {
         top: `${newTop}px`,
         // cursor: this.cursors[point],
       };
-// console.log(style)
+      // console.log(style)
       return style;
     };
 
-    // 改变大小
-    const handleMouseDownOnPoint = () => {}
+    // 8个点改变矩形大小
+    const handleMouseDownOnPoint = (point, e) => {
+      commit("setCurComponent", {
+        component: props.element,
+        index: props.index,
+      });
+      // 阻止移动
+      e.stopPropagation();
+      e.preventDefault();
+
+      const style = props.defaultStyle;
+      // 组件宽高比
+      const proportion = style.width / style.height;
+      // 组件中心点
+      const center = {
+        x: style.left + style.width / 2,
+        y: style.top + style.height / 2,
+      };
+
+      // 画布信息
+      const editorRectInfo = state.editor.getBoundingClientRect();
+      // console.log(editorRectInfo);
+      const pointRect = e.target.getBoundingClientRect();
+
+      // 当前点击圆点相对于画布的中心坐标
+      const curPoint = {
+        x: Math.round(
+          pointRect.left - editorRectInfo.left + e.target.offsetWidth / 2
+        ),
+        y: Math.round(
+          pointRect.top - editorRectInfo.top + e.target.offsetHeight / 2
+        ),
+      };
+      // 获取对称点的坐标，根据对称点和鼠标位置找到新的中心点
+      const symmetricPoint = {
+        x: center.x - (curPoint.x - center.x),
+        y: center.y - (curPoint.y - center.y),
+      };
+
+      const move = (moveEvent) => {
+        // 拖动点的位置
+
+        // 鼠标移动后的当前点的坐标
+        const curPosition = {
+          x: moveEvent.clientX - editorRectInfo.left,
+          y: moveEvent.clientY - editorRectInfo.top,
+        };
+        /**
+         * point 八个点
+         * curPosition 鼠标移动的位置坐标
+         * proportion 宽高比
+         * needLockProportion 先给个默认 false
+         * symmetricPoint 相对组件中心的对称点坐标
+         */
+        calculateComponentPositonAndSize(
+          point,
+          style,
+          curPosition,
+          proportion,
+          false,
+          {
+            center,
+            curPoint,
+            symmetricPoint,
+          }
+        );
+        commit("setShapeStyle", style);
+      };
+      const up = () => {
+        document.removeEventListener("mousemove", move);
+        document.removeEventListener("mouseup", up);
+        // needSave && this.$store.commit("recordSnapshot");
+      };
+
+      document.addEventListener("mousemove", move);
+      document.addEventListener("mouseup", up);
+    };
     return {
       handleMouseDownOnPoint,
       getPointStyle,
