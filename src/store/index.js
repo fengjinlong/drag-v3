@@ -1,7 +1,10 @@
 import { createStore } from "vuex";
+import contextmenu from "./contextmenu.js"
 
 export default createStore({
   state: {
+    // 右键菜单
+    ...contextmenu.state,
     componentData: [],
     curComponent: null,
     curComponentIndex: 0,

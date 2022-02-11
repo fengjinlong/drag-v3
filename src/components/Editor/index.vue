@@ -1,5 +1,5 @@
 <template>
-  <div id="editor" class="editor" ref="editor">
+  <div id="editor" class="editor" ref="editor" @contextmenu="handleContextMenu">
     <!-- 网格线 -->
     <!-- <Grid /> -->
     <!-- {{  }} -->
@@ -24,7 +24,7 @@
       />
     </Shape>
     <!-- 右击菜单 -->
-    <!-- <ContextMenu /> -->
+    <ContextMenu />
     <!-- 标线 -->
     <!-- <MarkLine /> -->
     <!-- 选中区域 -->
@@ -43,7 +43,7 @@ import { getCurrentInstance, isRef, toRefs, ref, nextTick } from "vue";
 import Shape from "./Shape";
 // import { getStyle, getComponentRotatedStyle } from '@/utils/style'
 // import { $ } from '@/utils/utils'
-// import ContextMenu from './ContextMenu'
+import ContextMenu from "./ContextMenu";
 // import MarkLine from './MarkLine'
 // import Area from './Area'
 // import eventBus from '@/utils/eventBus'
@@ -52,6 +52,7 @@ import Shape from "./Shape";
 export default {
   components: {
     Shape,
+    ContextMenu,
   },
   setup(props) {
     // const {ctx} = getCurrentInstance()
@@ -80,8 +81,31 @@ export default {
 
       return result;
     };
+
+    // 右键
+    const handleContextMenu = () => {
+      e.stopPropagation();
+      e.preventDefault();
+
+      // 计算菜单相对于编辑器的位移
+      let target = e.target;
+      let top = e.offsetY;
+      let left = e.offsetX;
+      while (target instanceof SVGElement) {
+        target = target.parentNode;
+      }
+
+      // while (!target.className.includes("editor")) {
+      //   left += target.offsetLeft;
+      //   top += target.offsetTop;
+      //   target = target.parentNode;
+      // }
+
+      this.$store.commit("showContextMenu", { top, left });
+    };
     return {
       editor,
+      handleContextMenu,
       getShapeStyle,
       componentData,
       // componentData1: [
