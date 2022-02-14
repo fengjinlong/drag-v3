@@ -1,17 +1,19 @@
 export default {
   state: {
-    menuTop: 0,
-    menuLeft: 0,
+    menuTop: 150,
+    menuLeft: 300,
     menuShow: false,
   },
   mutations: {
-    showContextMenu(state, {top, left}) {
-      state.menuShow = true
-      state.left = left
-      state.top = top
+    showContextMenu(state, { top, left }) {
+      // console.log(top)
+      state.menuShow = true;
+      state.menuTop = top;
+      state.menuLeft = left;
     },
     hideContextMenu(state) {
-      state.menuShow = false
-    }
+      console.log(state);
+      state.menuShow = false;
+    },
   },
-}
+};

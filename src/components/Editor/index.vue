@@ -1,5 +1,11 @@
 <template>
-  <div id="editor" class="editor" ref="editor" @contextmenu="handleContextMenu">
+  <div
+    id="editor"
+    class="editor"
+    ref="editor"
+    @click="hideContextMenu"
+    @contextmenu="handleContextMenu"
+  >
     <!-- 网格线 -->
     <!-- <Grid /> -->
     <!-- {{  }} -->
@@ -83,7 +89,7 @@ export default {
     };
 
     // 右键
-    const handleContextMenu = () => {
+    const handleContextMenu = (e) => {
       e.stopPropagation();
       e.preventDefault();
 
@@ -95,18 +101,24 @@ export default {
         target = target.parentNode;
       }
 
-      // while (!target.className.includes("editor")) {
-      //   left += target.offsetLeft;
-      //   top += target.offsetTop;
-      //   target = target.parentNode;
-      // }
+      // 处理在组件上右键
+      while (!target.className.includes("editor")) {
+        left += target.offsetLeft;
+        top += target.offsetTop;
+        target = target.parentNode;
+      }
 
-      this.$store.commit("showContextMenu", { top, left });
+      commit("showContextMenu", { top, left });
     };
     return {
       editor,
       handleContextMenu,
       getShapeStyle,
+      hideContextMenu(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        commit("hideContextMenu");
+      },
       componentData,
       // componentData1: [
       //   {
@@ -139,6 +151,8 @@ export default {
   position: relative;
   background: #fff;
   margin: auto;
+  width: 100%;
+  height: 100%;
 }
 .lock {
   opacity: 0.5;

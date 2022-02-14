@@ -1,7 +1,8 @@
 <template>
   <div
     style="position: absolute"
-    class="active shape"
+    class="shape"
+    :class={active}
     @click="selectCurComponent"
     @mousedown="handleMouseDownOnShape"
   >
@@ -67,7 +68,7 @@ export default {
         pos.top = curY - startY + startTop;
         pos.left = curX - startX + startLeft;
 
-        console.log(pos.width);
+        // console.log(pos.width);
 
         // 修改当前组件样式
         commit("setShapeStyle", pos);
@@ -201,7 +202,12 @@ export default {
     return {
       handleMouseDownOnPoint,
       getPointStyle,
-      selectCurComponent() {},
+      selectCurComponent(e) {
+        // 隐藏右键
+         e.stopPropagation()
+            e.preventDefault()
+            commit('hideContextMenu')
+      },
       handleMouseDownOnShape,
       pointList: ["lt", "t", "rt", "r", "rb", "b", "lb", "l"], // 八个方向
     };
@@ -213,6 +219,9 @@ export default {
 .active {
   outline: 1px solid #70c0ff;
   user-select: none;
+}
+.shape {
+  background-color: #fff
 }
 .shape-point {
   position: absolute;

@@ -1,40 +1,50 @@
 <template>
   <div
-    v-show="menuShow"
+    v-show="state.menuShow"
     class="contextmenu"
-    :style="{ top: menuTop + 'px', left: menuLeft + 'px' }"
+    :style="{ top: state.menuTop - 8 + 'px', left: state.menuLeft + 'px' }"
   >
     <ul @mouseup="handleMouseUp">
-          <!-- <li @click="copy">复制</li>
+      <!-- {{state.menuTop}} -->
+      <!-- <li @click="copy">复制</li>
                     <li @click="paste">粘贴</li>
                     <li @click="cut">剪切</li> -->
-          <li @click="deleteComponent">删除</li>
-          <!-- <li @click="lock">锁定</li> -->
-          <li @click="topComponent">置顶</li>
-          <li @click="bottomComponent">置底</li>
-          <!-- <li @click="upComponent">上移</li> -->
-          <!-- <li @click="downComponent">下移</li> -->
-        <!-- <li v-else @click="unlock">解锁</li> -->
+      <li @click="deleteComponent">删除</li>
+      <!-- <li @click="lock">锁定</li> -->
+      <!-- <li @click="topComponent">置顶</li> -->
+      <!-- <li @click="bottomComponent">置底</li> -->
+      <!-- <li @click="upComponent">上移</li> -->
+      <!-- <li @click="downComponent">下移</li> -->
+      <!-- <li v-else @click="unlock">解锁</li> -->
       <!-- <li v-else @click="paste">粘贴</li> -->
     </ul>
   </div>
 </template>
 
 <script>
+import { relative, ref, nextTick } from "vue";
 import { useStore } from "vuex";
 
 export default {
   setup() {
+    const { state, commit } = useStore();
+
     return {
-      menuShow: true,
-      menuTop: 100,
-      menuLeft: 100,
-      handleMouseUp() {},
+      state,
+      menuShow: state,
+      menuTop: state,
+      menuLeft: state,
       deleteComponent() {
-        console.log('delete')
+        commit("deleteComponent");
+        // this.$store.commit("recordSnapshot");
       },
-      bottomComponent() {},
-      topComponent() {},
+      handleMouseUp() {},
+      bottomComponent() {
+        commit("bottomComponent");
+      },
+      topComponent() {
+        commit("topComponent");
+      },
       curComponent: 1,
     };
   },
@@ -67,7 +77,7 @@ export default {
   // },
 
   // deleteComponent() {
-  //   this.$store.commit("deleteComponent");
+  //   commit("deleteComponent");
   //   this.$store.commit("recordSnapshot");
   // },
 
