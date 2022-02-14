@@ -6,6 +6,7 @@
     @click="selectCurComponent"
     @mousedown="handleMouseDownOnShape"
   >
+  <!-- {{active}} -->
     <!-- 原点 -->
     <!-- v-for="item in isActive() ? pointList : []" -->
     <div
@@ -34,6 +35,10 @@ export default {
       type: Object,
       default: () => {},
     },
+    active: {
+      require: true,
+      default: false
+    },
     index: {
       require: true,
       type: Number,
@@ -44,6 +49,8 @@ export default {
     // store
     const { commit, state } = useStore();
     const pos = props.defaultStyle;
+
+    let active = props.active;
 
     // 拖动位置
     const handleMouseDownOnShape = (e) => {
@@ -124,10 +131,10 @@ export default {
 
     // 8个点改变矩形大小
     const handleMouseDownOnPoint = (point, e) => {
-      commit("setCurComponent", {
-        component: props.element,
-        index: props.index,
-      });
+      // commit("setCurComponent", {
+      //   component: props.element,
+      //   index: props.index,
+      // });
       // 阻止移动
       e.stopPropagation();
       e.preventDefault();
@@ -202,6 +209,7 @@ export default {
     return {
       handleMouseDownOnPoint,
       getPointStyle,
+      active,
       selectCurComponent(e) {
         // 隐藏右键
          e.stopPropagation()

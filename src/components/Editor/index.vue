@@ -18,7 +18,9 @@
       :default-style="item.style"
       :style="getShapeStyle(item.style)"
       :index="index"
+      :active="item.id === (curComponent || {}).id"
     >
+    {{item.id}}
       <component
         :is="item.component"
         :id="'component' + item.id"

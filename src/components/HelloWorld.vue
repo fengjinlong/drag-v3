@@ -50,7 +50,8 @@ import {
 } from "@ant-design/icons-vue";
 import Editor from "@/components/Editor/index";
 import Left from "@/components/Left";
-import { deepCopy } from '@/utils/utils'
+import { deepCopy } from "@/utils/utils";
+import generateID from "@/utils/generateID"
 import { defineComponent, ref } from "vue";
 // export default defineComponent({
 export default {
@@ -71,17 +72,17 @@ export default {
       handleDrop(e) {
         e.stopPropagation();
         e.preventDefault();
-        console.log(store.state)
+        // console.log(store.state);
 
         let index = e.dataTransfer.getData("index");
         if (index) {
           // 需要深克隆 不然样式重合
-          let com = deepCopy(componentListData[index])
-
+          let com = deepCopy(componentListData[index]);
+                com.id = generateID()
           const rectInfo = store.state.editor.getBoundingClientRect();
           // 设置位置
-          com.style.top = e.clientY - rectInfo.y
-          com.style.left = e.clientX - rectInfo.x
+          com.style.top = e.clientY - rectInfo.y;
+          com.style.left = e.clientX - rectInfo.x;
 
           store.commit("addItem", com);
         }
@@ -96,6 +97,7 @@ export default {
       },
       deselectCurComponent(e) {
         // console.log(e);
+        store.commit("setCurComponent", { component: null, index: null });
       },
     };
   },
