@@ -40,6 +40,7 @@ export default {
 .v-button {
   display: inline-block;
   line-height: 1;
+  
   white-space: nowrap;
   cursor: pointer;
   background: #fff;
