@@ -8,7 +8,7 @@ export default createStore({
     ...contextmenu.state,
     componentData: [],
     curComponent: null,
-    curComponentIndex: 0,
+    curComponentIndex: null,
     editor: null,
   },
 
@@ -37,6 +37,7 @@ export default createStore({
       if (rotate) curComponent.style.rotate = rotate;
     },
     setCurComponent(state, payload) {
+      console.log(payload)
       state.curComponent = payload.component;
       state.curComponentIndex = payload.index;
     },
@@ -46,10 +47,10 @@ export default createStore({
         index = state.curComponentIndex;
       }
 
-      if (index == state.curComponentIndex) {
-        state.curComponentIndex = null;
-        state.curComponent = null;
-      }
+      // if (index == state.curComponentIndex) {
+      //   state.curComponentIndex = null;
+      //   state.curComponent = null;
+      // }
 
       console.log(index);
 

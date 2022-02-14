@@ -2,15 +2,15 @@
   <div
     style="position: absolute"
     class="shape"
-    :class={active}
+    :class="{ active }"
     @click="selectCurComponent"
     @mousedown="handleMouseDownOnShape"
   >
-  <!-- {{active}} -->
+    <!-- {{active}} -->
     <!-- 原点 -->
     <!-- v-for="item in isActive() ? pointList : []" -->
     <div
-      v-for="item in pointList"
+      v-for="item in (active? pointList : [])"
       :key="item"
       class="shape-point"
       :style="getPointStyle(item)"
@@ -22,6 +22,7 @@
 
 <script>
 import { useStore } from "vuex";
+import{ref,effect} from "vue"
 import calculateComponentPositonAndSize from "@/utils/calculateComponentPositonAndSize";
 export default {
   props: {
@@ -36,8 +37,8 @@ export default {
       default: () => {},
     },
     active: {
-      require: true,
-      default: false
+      type: Boolean,
+      default: false,
     },
     index: {
       require: true,
@@ -50,7 +51,10 @@ export default {
     const { commit, state } = useStore();
     const pos = props.defaultStyle;
 
-    let active = props.active;
+    let active = ref(false)
+    effect(() => {
+      active.value = props.active;
+    })
 
     // 拖动位置
     const handleMouseDownOnShape = (e) => {
@@ -210,11 +214,17 @@ export default {
       handleMouseDownOnPoint,
       getPointStyle,
       active,
+       isActive() {
+            // return active && !this.element.isLock
+            return active
+        },
       selectCurComponent(e) {
         // 隐藏右键
-         e.stopPropagation()
-            e.preventDefault()
-            commit('hideContextMenu')
+        // console.log(active)
+        // console.log(state.curComponent.id)
+        e.stopPropagation();
+        e.preventDefault();
+        // commit('hideContextMenu')
       },
       handleMouseDownOnShape,
       pointList: ["lt", "t", "rt", "r", "rb", "b", "lb", "l"], // 八个方向
@@ -229,15 +239,15 @@ export default {
   user-select: none;
 }
 .shape {
-  background-color: #fff
+  background-color: #fff;
 }
 .shape-point {
   position: absolute;
   background: #fff;
-  border: 1px solid #59c7f9;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   z-index: 1;
+  border: 1px solid #59c7f9;
 }
 </style>

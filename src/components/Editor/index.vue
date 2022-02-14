@@ -18,9 +18,11 @@
       :default-style="item.style"
       :style="getShapeStyle(item.style)"
       :index="index"
-      :active="item.id === (curComponent || {}).id"
+      :active="item.id == aaa"
     >
-    {{item.id}}
+      <!-- :active="item.id === (curComponent || {}).id" -->
+      <!-- {{state.curComponent.id}} -->
+      <!-- {{state.curComponent}} -->
       <component
         :is="item.component"
         :id="'component' + item.id"
@@ -46,8 +48,9 @@
 </template>
 
 <script>
+import { effect, ref } from "vue";
 import { useStore } from "vuex";
-import { getCurrentInstance, isRef, toRefs, ref, nextTick } from "vue";
+import { nextTick } from "vue";
 import Shape from "./Shape";
 // import { getStyle, getComponentRotatedStyle } from '@/utils/style'
 // import { $ } from '@/utils/utils'
@@ -70,7 +73,14 @@ export default {
     const editor = ref(null);
     const store = useStore();
     const { commit, state } = store;
-    const { componentData } = state;
+    const { componentData, curComponent } = state;
+    let aaa = ref(0);
+    effect(() => {
+      aaa.value = state.curComponent && state.curComponent.id;
+    });
+    // setInterval(() => {
+    //   console.log(aaa)
+    // }, 1000);
     nextTick(() => {
       commit("saveEditor", editor);
     });
@@ -113,7 +123,10 @@ export default {
       commit("showContextMenu", { top, left });
     };
     return {
+      aaa,
+      curComponent,
       editor,
+      state,
       handleContextMenu,
       getShapeStyle,
       hideContextMenu(e) {
