@@ -1,7 +1,7 @@
 <template>
-    <!-- tabindex >= 0 使得双击时聚集该元素 -->
-    <!-- <a-button>btn</a-button>  -->
-    <button class="v-button">btn</button>
+  <!-- tabindex >= 0 使得双击时聚集该元素 -->
+  <!-- <a-button>btn</a-button>  -->
+  <button class="v-button">{{ propValue }}</button>
 
   <!-- @keydown="handleKeydown"
     @keyup="handleKeyup" -->
@@ -18,9 +18,13 @@
 </template>
 
 <script>
-import { toRefs } from "vue";
+import { ref, computed } from "vue";
 export default {
   props: {
+    propValue: {
+      type: String,
+      default: "",
+    },
     element: {
       type: Object,
       default: () => {},
@@ -28,9 +32,15 @@ export default {
   },
   setup(props) {
     const style = props.element.style;
-    // console.log(toRefs(style).top.value)
+    const propValue = computed(() => {
+      return props.propValue;
+    });
+    // effect(() => {
+    //   propValue.value = props.propValue;
+    // })
     return {
       style,
+      propValue,
       canEdit: true,
     };
   },
@@ -41,7 +51,7 @@ export default {
   display: inline-block;
   line-height: 1;
   border: none;
-  
+
   white-space: nowrap;
   cursor: pointer;
   background: transparent;

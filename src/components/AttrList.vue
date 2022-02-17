@@ -63,14 +63,12 @@
           :type="key !== 'xAxis' ? 'number' : 'text'"
         />
       </a-form-item>
-      <!-- <a-form-item
-        v-if="
-          state.curComponent && !excludes.includes(state.curComponent.component)
-        "
+      <a-form-item
+      
         label="内容"
       >
         <a-input v-model:value="state.curComponent.propValue" type="textarea" />
-      </a-form-item> -->
+      </a-form-item>
     </a-form>
   </div>
 </template>
@@ -85,14 +83,11 @@ export default {
     const { state } = useStore();
     const styleKeys = computed(() => {
       if (state.curComponent) {
-        console.log(state.curComponent.style);
         const curComponentStyleKeys = Object.keys(state.curComponent.style);
 
         let arr = attrNameData.filter((item) =>
           curComponentStyleKeys.includes(item.key)
         );
-        console.log(arr);
-
         return arr;
       }
     });
@@ -142,22 +137,7 @@ export default {
       // attrNameData,
     };
   },
-  // computed: {
-  //   styleKeys() {
-  //     if (this.$store.state.curComponent) {
-  //       const curComponentStyleKeys = Object.keys(
-  //         this.$store.state.curComponent.style
-  //       );
 
-  //       let arr = this.attrNameData.filter((item) =>
-  //         curComponentStyleKeys.includes(item.key)
-  //       );
-
-  //       // console.log(arr)
-  //       return [];
-  //     }
-  //   },
-  // },
 };
 </script>
 
