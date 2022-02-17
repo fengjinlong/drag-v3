@@ -33,7 +33,8 @@
         </div>
       </a-layout-content>
       <a-layout-sider :trigger="null" collapsible style="background: #fff">
-        right
+        <AttrList v-if="state.curComponent" />
+        <p v-else class="placeholder">请选择组件</p>
       </a-layout-sider>
     </a-layout>
   </a-layout>
@@ -51,7 +52,8 @@ import {
 import Editor from "@/components/Editor/index";
 import Left from "@/components/Left";
 import { deepCopy } from "@/utils/utils";
-import generateID from "@/utils/generateID"
+import generateID from "@/utils/generateID";
+import AttrList from "@/components/AttrList"; // 右侧属性列表
 import { defineComponent, ref } from "vue";
 // export default defineComponent({
 export default {
@@ -62,29 +64,31 @@ export default {
     // MenuUnfoldOutlined,
     // MenuFoldOutlined,
     Editor,
+    AttrList,
     Left,
   },
   setup() {
     // 编辑器
-    const store = useStore();
+    const {state,commit} = useStore();
 
     return {
+      state,
       handleDrop(e) {
         e.stopPropagation();
         e.preventDefault();
-        // console.log(store.state);
+        // console.log(state);
 
         let index = e.dataTransfer.getData("index");
         if (index) {
           // 需要深克隆 不然样式重合
           let com = deepCopy(componentListData[index]);
-                com.id = generateID()
-          const rectInfo = store.state.editor.getBoundingClientRect();
+          com.id = generateID();
+          const rectInfo = state.editor.getBoundingClientRect();
           // 设置位置
           com.style.top = e.clientY - rectInfo.y;
           com.style.left = e.clientX - rectInfo.x;
 
-          store.commit("addItem", com);
+          commit("addItem", com);
         }
       },
 
@@ -96,8 +100,8 @@ export default {
         // console.log(e);
       },
       deselectCurComponent(e) {
-        // console.log(e);
-        store.commit("setCurComponent", { component: null, index: null });
+        // store.commit("setCurComponent", { component: null, index: null });
+        // // console.log(e);
       },
     };
   },

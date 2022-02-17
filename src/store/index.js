@@ -47,10 +47,10 @@ export default createStore({
         index = state.curComponentIndex;
       }
 
-      // if (index == state.curComponentIndex) {
-      //   state.curComponentIndex = null;
-      //   state.curComponent = null;
-      // }
+      if (index == state.curComponentIndex) {
+        state.curComponentIndex = null;
+        state.curComponent = null;
+      }
 
       console.log(index);
 

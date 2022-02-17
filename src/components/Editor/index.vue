@@ -7,7 +7,7 @@
     @contextmenu="handleContextMenu"
   >
     <!-- 网格线 -->
-    <!-- <Grid /> -->
+    <Grid />
     <!-- {{  }} -->
 
     <!--页面组件列表展示-->
@@ -58,10 +58,11 @@ import ContextMenu from "./ContextMenu";
 // import MarkLine from './MarkLine'
 // import Area from './Area'
 // import eventBus from '@/utils/eventBus'
-// import Grid from './Grid'
+import Grid from './Grid'
 // import { changeStyleWithScale } from '@/utils/translate'
 export default {
   components: {
+    Grid,
     Shape,
     ContextMenu,
   },
@@ -87,13 +88,22 @@ export default {
 
     const getShapeStyle = (style) => {
       const result = {};
-      ["width", "height", "top", "left", "rotate"].forEach((attr) => {
+      ["width", "height", "top", "left", "rotate","fontSize"].forEach((attr) => {
         if (attr != "rotate") {
+          if (attr === "borderWidth") {
+            // console.log(result)
+          }
           result[attr] = style[attr] + "px";
         } else {
           result.transform = "rotate(" + style[attr] + "deg)";
         }
       });
+      ["color", "backgroundColor","borderColor"].forEach((attr) => {
+       result[attr] = style[attr] 
+       if (attr === "borderColor") {
+         console.log(style[attr])
+       }
+      })
 
       // console.log(toRefs(style));
 

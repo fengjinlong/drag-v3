@@ -2,6 +2,7 @@
   <div class="v-text">
     <!-- tabindex >= 0 使得双击时聚集该元素 -->
     <div
+      class="div"
       ref="text"
       :style="element.style"
       :tabindex="element.id"
@@ -41,3 +42,15 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .v-text {
+    width: 100%;
+    height: 100%;
+    display: table;
+  }
+  .v-text .div{
+   width: 100%;
+    height: 100%;
+    display: table; 
+  }
+</style>

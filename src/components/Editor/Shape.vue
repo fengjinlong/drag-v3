@@ -63,6 +63,7 @@ export default {
         component: props.element,
         index: props.index,
       });
+      
 
       // 鼠标点击落点坐标
       const startY = e.clientY;
@@ -84,7 +85,7 @@ export default {
         // 修改当前组件样式
         commit("setShapeStyle", pos);
       };
-      const up = () => {
+      const up = (e) => {
         document.removeEventListener("mousemove", move);
         document.removeEventListener("mouseup", up);
       };
@@ -94,6 +95,7 @@ export default {
 
     // 八个点的位置
     const getPointStyle = (point) => {
+      // console.log(props.defaultStyle.color)
       const { width, height } = props.defaultStyle;
 
       // width = width * 1
@@ -240,6 +242,7 @@ export default {
 }
 .shape {
   background-color: #fff;
+  border: 1px solid #ddd
 }
 .shape-point {
   position: absolute;
