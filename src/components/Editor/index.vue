@@ -4,8 +4,8 @@
     class="editor"
     ref="editor"
     :style="{
-      width: canvasStyleData.width + 'px',
-      height: canvasStyleData.height + 'px',
+      width: state.canvasStyleData.width + 'px',
+      height: state.canvasStyleData.height + 'px',
     }"
     @click="hideContextMenu"
     @contextmenu="handleContextMenu"
@@ -84,9 +84,6 @@ export default {
     effect(() => {
       aaa.value = state.curComponent && state.curComponent.id;
     });
-    // setInterval(() => {
-    //   console.log(aaa)
-    // }, 1000);
     nextTick(() => {
       commit("saveEditor", editor);
     });
@@ -144,10 +141,6 @@ export default {
       curComponent,
       editor,
       state,
-      canvasStyleData: {
-        width: 1200,
-        height: 740,
-      },
       handleContextMenu,
       getShapeStyle,
       hideContextMenu(e) {

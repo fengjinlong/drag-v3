@@ -5,8 +5,8 @@
       <div
         class="canvas"
         :style="{
-          width: canvasStyleData.width + 'px',
-          height: canvasStyleData.height + 'px',
+          width: state.canvasStyleData.width + 'px',
+          height: state.canvasStyleData.height + 'px',
         }"
       >
         <ComponentWrapper
@@ -45,24 +45,12 @@ export default {
     });
     return {
       show,
-      canvasStyleData: {
-        width: 1200,
-        height: 740
-      },
       state,
       close() {
         emit("change");
       },
     };
   },
-  //   computed: mapState(["componentData", "canvasStyleData"]),
-  // changeStyleWithScale,
-
-  // getStyle,
-
-  // close() {
-  //   this.$emit("change", false);
-  // },
 };
 </script>
 

@@ -2,22 +2,21 @@
   <!-- <div> -->
   <div class="toolbar">
     <a-button style="margin-left: 10px" @click="preview">预览</a-button>
-    <!-- <el-button @click="save">保存</el-button> -->
     <a-button @click="clearCanvas">清空画布</a-button>
+    <a-button @click="save">保存</a-button>
 
-    <!-- <div class="canvas-config">
+     <div class="canvas-config">
         <span>画布大小</span>
-        <input v-model="canvasStyleData.width" />
+        <a-input v-model:value="state.canvasStyleData.width" />
         <span>*</span>
-        <input v-model="canvasStyleData.height" />
+        <a-input v-model:value="state.canvasStyleData.height" />
       </div>
-      <div class="canvas-config">
+
+      <!-- <div class="canvas-config">
         <span>画布比例</span>
         <input v-model="scale" @input="handleScaleChange" /> %
-      </div>
-    </div>
+      </div> -->
 
-     -->
     <Preview :value="isShowPreview" @change="handlePreviewChange" />
   </div>
   <!-- </div> -->
@@ -27,7 +26,7 @@
 // import generateID from "@/utils/generateID";
 // import toast from "@/utils/toast";
 import { useStore } from "vuex";
-import { ref } from "vue";
+import { ref, getCurrentInstance } from "vue";
 import Preview from "@/components/Editor/Preview";
 // import { commonStyle, commonAttr } from "@/custom-component/component-list";
 // import eventBus from "@/utils/eventBus";
@@ -38,7 +37,8 @@ export default {
     Preview,
   },
   setup() {
-    const { commit } = useStore();
+    const { proxy } = getCurrentInstance();
+    const { commit,state } = useStore();
     const clearCanvas = () => {
       commit("deleteComponentAll");
     };
@@ -50,7 +50,15 @@ export default {
     const handlePreviewChange = () => {
       isShowPreview.value = false;
     };
+
+    const save = () => {
+      localStorage.setItem("canvasData", JSON.stringify(state.componentData));
+      // localStorage.setItem("canvasStyle", JSON.stringify(this.canvasStyleData));
+      proxy.$message.success("保存成功");
+    };
     return {
+      save,
+      state,
       isShowPreview,
       handlePreviewChange,
       clearCanvas,

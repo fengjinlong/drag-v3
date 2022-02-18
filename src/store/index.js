@@ -4,6 +4,11 @@ import { message } from "ant-design-vue";
 
 export default createStore({
   state: {
+    // 画布尺寸
+    canvasStyleData: {
+      width: 1200,
+      height: 740
+    },
     // 右键菜单
     ...contextmenu.state,
     componentData: [],
