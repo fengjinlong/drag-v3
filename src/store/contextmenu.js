@@ -6,13 +6,12 @@ export default {
   },
   mutations: {
     showContextMenu(state, { top, left }) {
-      // console.log(top)
       state.menuShow = true;
       state.menuTop = top;
       state.menuLeft = left;
     },
     hideContextMenu(state) {
-      console.log(state);
+      
       state.menuShow = false;
     },
   },

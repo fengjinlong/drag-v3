@@ -17,10 +17,7 @@ import componentList from "@/custom-component/component-list";
 export default {
   setup() {
     const handleDragStart = (e) => {
-      // console.log(e);
       e.dataTransfer.setData("index", e.target.dataset.index);
-      // console.log(e.dataTransfer)
-      // console.log(e.target.dataset.index);
     };
     return {
       handleDragStart,

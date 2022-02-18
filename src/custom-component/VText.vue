@@ -35,7 +35,6 @@ export default {
     },
   },
   setup(props) {
-    console.log(props.element);
     return {
       canEdit: true,
     };

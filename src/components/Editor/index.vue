@@ -73,7 +73,6 @@ export default {
   },
   setup(props) {
     // const {ctx} = getCurrentInstance()
-    // console.log(useStore())
 
     // 存dom 获取坐标使用
     const editor = ref(null);
@@ -94,7 +93,6 @@ export default {
         (attr) => {
           if (attr != "rotate") {
             if (attr === "borderWidth") {
-              // console.log(result)
             }
             result[attr] = style[attr] + "px";
           } else {
@@ -104,12 +102,8 @@ export default {
       );
       ["color", "backgroundColor", "borderColor"].forEach((attr) => {
         result[attr] = style[attr];
-        if (attr === "borderColor") {
-          console.log(style[attr]);
-        }
       });
 
-      // console.log(toRefs(style));
 
       return result;
     };

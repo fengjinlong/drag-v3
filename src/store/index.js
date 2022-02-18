@@ -24,8 +24,6 @@ export default createStore({
     },
     // 编辑器
     saveEditor(state, payload) {
-      // console.log('payload')
-      // console.log(payload)
       state.editor = payload;
     },
     setShapeStyle(
@@ -34,7 +32,6 @@ export default createStore({
     ) {
       // state.componentData[1].style.top = style.top
       // componentData[curComponentIndex].style.width = width;
-      // console.log(curComponent.style.width)
       if (top) curComponent.style.top = top;
       if (left) curComponent.style.left = left;
       if (width) curComponent.style.width = width;
@@ -42,7 +39,6 @@ export default createStore({
       if (rotate) curComponent.style.rotate = rotate;
     },
     setCurComponent(state, payload) {
-      console.log(payload);
       state.curComponent = payload.component;
       state.curComponentIndex = payload.index;
     },
@@ -65,7 +61,6 @@ export default createStore({
         state.curComponent = null;
       }
 
-      console.log(index);
 
       state.componentData.splice(index, 1);
     },
@@ -74,7 +69,6 @@ export default createStore({
       if (curComponentIndex < componentData.length - 1) {
         componentData.splice(curComponentIndex, 1);
         componentData.push(curComponent);
-        console.log(componentData);
       } else {
         message.warn("已经到顶了");
       }

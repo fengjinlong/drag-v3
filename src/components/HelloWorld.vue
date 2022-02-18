@@ -77,7 +77,6 @@ export default {
       handleDrop(e) {
         e.stopPropagation();
         e.preventDefault();
-        // console.log(state);
 
         let index = e.dataTransfer.getData("index");
         if (index) {
@@ -95,14 +94,11 @@ export default {
 
       handleDragOver(e) {
         e.preventDefault();
-        // console.log(e);
       },
       handleMouseDown(e) {
-        // console.log(e);
       },
       deselectCurComponent(e) {
         // store.commit("setCurComponent", { component: null, index: null });
-        // // console.log(e);
       },
     };
   },

@@ -80,7 +80,6 @@ export default {
         pos.top = curY - startY + startTop;
         pos.left = curX - startX + startLeft;
 
-        // console.log(pos.width);
 
         // 修改当前组件样式
         commit("setShapeStyle", pos);
@@ -95,7 +94,6 @@ export default {
 
     // 八个点的位置
     const getPointStyle = (point) => {
-      // console.log(props.defaultStyle.color)
       const { width, height } = props.defaultStyle;
 
       // width = width * 1
@@ -131,7 +129,6 @@ export default {
         top: `${newTop}px`,
         // cursor: this.cursors[point],
       };
-      // console.log(style)
       return style;
     };
 
@@ -156,7 +153,7 @@ export default {
 
       // 画布信息
       const editorRectInfo = state.editor.getBoundingClientRect();
-      // console.log(editorRectInfo);
+      
       const pointRect = e.target.getBoundingClientRect();
 
       // 当前点击圆点相对于画布的中心坐标
@@ -222,8 +219,6 @@ export default {
         },
       selectCurComponent(e) {
         // 隐藏右键
-        // console.log(active)
-        // console.log(state.curComponent.id)
         e.stopPropagation();
         e.preventDefault();
         // commit('hideContextMenu')

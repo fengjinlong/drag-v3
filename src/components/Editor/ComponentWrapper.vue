@@ -13,7 +13,6 @@
 <script>
 import { getStyle } from "@/utils/style";
 // import runAnimation from "@/utils/runAnimation";
-// import { mixins } from "@/utils/events";
 
 export default {
   props: {
@@ -33,12 +32,7 @@ export default {
     };
   },
 
-  // handleClick() {
-  //   const events = this.config.events;
-  //   Object.keys(events).forEach((event) => {
-  //     this[event](events[event]);
-  //   });
-  // },
+
 };
 </script>
 
