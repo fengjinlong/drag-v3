@@ -37,11 +37,19 @@ export default createStore({
       if (rotate) curComponent.style.rotate = rotate;
     },
     setCurComponent(state, payload) {
-      console.log(payload)
+      console.log(payload);
       state.curComponent = payload.component;
       state.curComponentIndex = payload.index;
     },
-
+    // 删除所有
+    deleteComponentAll(state) {
+      if (state.componentData === []) return;
+      while (state.componentData.length > 0) {
+        state.componentData.splice(0, 1);
+      }
+      state.curComponent = null;
+      state.curComponentIndex = null;
+    },
     deleteComponent(state, index) {
       if (index === undefined) {
         index = state.curComponentIndex;

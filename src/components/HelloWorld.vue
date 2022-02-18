@@ -1,7 +1,7 @@
 <template>
-  <a-layout style="min-height: 100vh">
-    <a-layout-header style="background: #fff; padding: 0"
-      >header
+  <a-layout style="height: 100vh">
+    <a-layout-header style="background: #fff; padding: 0">
+      <Toolbar />
       <!-- <menu-unfold-outlined
           v-if="collapsed"
           class="trigger"
@@ -10,17 +10,16 @@
         <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" /> -->
     </a-layout-header>
 
-    <a-layout>
+    <a-layout style="height: 100vh">
       <a-layout-sider :trigger="null" collapsible style="background: #fff">
         <Left />
       </a-layout-sider>
-      <a-layout-content
-        :style="{
-          margin: '24px 16px',
+      <!-- margin: '24px 16px',
           padding: '24px',
           background: '#fff',
-          minHeight: '280px',
-        }"
+          minHeight: '280px', -->
+      <a-layout-content
+        style="background: #f5f5f5; height: 100%; overflow: auto; padding: 20px"
       >
         <div
           class="content"
@@ -52,6 +51,7 @@ import {
 import Editor from "@/components/Editor/index";
 import Left from "@/components/Left";
 import { deepCopy } from "@/utils/utils";
+import Toolbar from "@/components/Toolbar";
 import generateID from "@/utils/generateID";
 import AttrList from "@/components/AttrList"; // 右侧属性列表
 import { defineComponent, ref } from "vue";
@@ -63,13 +63,14 @@ export default {
     // UploadOutlined,
     // MenuUnfoldOutlined,
     // MenuFoldOutlined,
+    Toolbar,
     Editor,
     AttrList,
     Left,
   },
   setup() {
     // 编辑器
-    const {state,commit} = useStore();
+    const { state, commit } = useStore();
 
     return {
       state,

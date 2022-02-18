@@ -3,6 +3,10 @@
     id="editor"
     class="editor"
     ref="editor"
+    :style="{
+      width: canvasStyleData.width + 'px',
+      height: canvasStyleData.height + 'px',
+    }"
     @click="hideContextMenu"
     @contextmenu="handleContextMenu"
   >
@@ -140,6 +144,10 @@ export default {
       curComponent,
       editor,
       state,
+      canvasStyleData: {
+        width: 1200,
+        height: 740,
+      },
       handleContextMenu,
       getShapeStyle,
       hideContextMenu(e) {
@@ -148,27 +156,6 @@ export default {
         commit("hideContextMenu");
       },
       componentData,
-      // componentData1: [
-      //   {
-      //     component: "v-text", // 组件名称，需要提前注册到 Vue
-      //     label: "文字", // 左侧组件列表中显示的名字
-      //     propValue: "文字", // 组件所使用的值
-      //     icon: "el-icon-edit", // 左侧组件列表中显示的名字
-      //     animations: [], // 动画列表
-      //     events: {}, // 事件列表
-      //     style: {
-      //       // 组件样式
-      //       width: 200,
-      //       height: 33,
-      //       fontSize: 28,
-      //       fontWeight: 500,
-      //       lineHeight: "",
-      //       letterSpacing: 0,
-      //       textAlign: "",
-      //       color: "",
-      //     },
-      //   },
-      // ],
     };
   },
 };
@@ -179,8 +166,8 @@ export default {
   position: relative;
   background: #fff;
   margin: auto;
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
 }
 .lock {
   opacity: 0.5;
