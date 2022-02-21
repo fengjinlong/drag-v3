@@ -21,6 +21,7 @@ const list = [
   //   style: {
   //     xAxis: "背心",
   //     yAxis: 60,
+  
   //     width: 300,
   //     height: 300,
   //   },
