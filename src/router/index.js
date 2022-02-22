@@ -4,6 +4,12 @@ import Home from "../views/Home.vue";
 const routes = [
   {
     path: "/",
+    name: "ForShow",
+    component: () => import(/* webpackChunkName: "ForShow" */ '../views/forShow.vue')
+  },
+
+  {
+    path: "/setPage",
     name: "Home",
     component: Home,
     // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
