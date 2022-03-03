@@ -13,12 +13,16 @@
 </template>
 <script>
 import componentList from "@/custom-component/component-list";
+import {ref} from "vue"
 
 export default {
   setup() {
     const handleDragStart = (e) => {
       e.dataTransfer.setData("index", e.target.dataset.index);
     };
+
+
+
     return {
       handleDragStart,
       componentList,
